@@ -163,7 +163,7 @@ class ShortsConverter:
         text_height = text_bbox[3] - text_bbox[1]
         
         x = (size[0] - text_width) // 2
-        y = size[1] - text_height - 50  # 50 pixels from bottom
+        y = int(size[1] * 0.66 - text_height // 2)  # 2/3 down the screen
         
         # Draw text with stroke
         for offset_x, offset_y in [(-2, -2), (-2, 2), (2, -2), (2, 2)]:
@@ -323,7 +323,7 @@ class ShortsConverter:
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     'client_secrets.json', self.SCOPES)
-                creds = flow.run_local_server(port=0)
+                creds = flow.run_local_server(port=8080)
             with open('token.pickle', 'wb') as token:
                 pickle.dump(creds, token)
                 
